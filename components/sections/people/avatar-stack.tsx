@@ -22,7 +22,7 @@ const KEYFRAMES: Keyframe[] = [
 ];
 
 const ICONS = [
-  "/brand/program-icon/mint.svg",
+  "/brand/program-icon/white.svg",
   "/brand/icons/bolt_blue.svg",
   "/brand/icons/key_amber.svg",
   "/brand/icons/teams_magenta.svg",

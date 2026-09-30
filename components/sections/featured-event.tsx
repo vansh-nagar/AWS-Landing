@@ -77,7 +77,7 @@ export function FeaturedEvent() {
           <AnimatedText>{event.heading}</AnimatedText>
         </h2>
         <div className="flex items-center gap-12 lg:col-span-6 lg:col-start-7 lg:row-start-1 lg:self-end lg:justify-self-end">
-          <PixelIcon name="program" className="h-20 text-black" />
+          <PixelIcon name="program" className="h-20 text-brand-purple" />
           <p className="font-mono text-caption-10 text-dark-grey uppercase">
             <AnimatedText>{event.note}</AnimatedText>
           </p>

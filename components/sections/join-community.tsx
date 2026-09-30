@@ -150,7 +150,7 @@ export function JoinCommunity() {
                   <div className="flex shrink-0 items-center gap-16">
                     <div className="relative flex size-48 shrink-0 items-center justify-center overflow-hidden rounded-full bg-black-deep ring-1 ring-white/15">
                       <PixelIcon
-                        icon={{ name: "program", color: "mint" }}
+                        icon={{ name: "program", color: "purple" }}
                         className="h-22"
                       />
                     </div>

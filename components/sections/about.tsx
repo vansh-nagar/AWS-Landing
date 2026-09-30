@@ -194,7 +194,7 @@ function QuoteCard() {
         </div>
         <figcaption className="flex items-center gap-16">
           <span className="relative flex size-48 shrink-0 items-center justify-center overflow-hidden rounded-full ring-1 ring-white/15">
-            <PixelIcon name="program" className="h-20 text-brand-mint" />
+            <PixelIcon name="program" className="h-20 text-brand-purple" />
           </span>
           <span className="min-w-0 flex-1 font-mono text-caption-10 uppercase">
             <span className="block truncate text-white">{quote.author}</span>

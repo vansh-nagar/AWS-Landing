@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   title: "AWS Student Builder Group at BIT Jaipur",
   description:
     "A student-led community at BIT Jaipur for learning cloud computing, building real projects, and connecting with student builders worldwide. Not an AWS employee group.",
-  icons: { icon: "/brand/program-icon/grey-850.svg" },
+  icons: { icon: "/brand/favicon-purple.svg" },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

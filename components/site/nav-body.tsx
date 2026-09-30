@@ -159,7 +159,7 @@ function DesktopNav({
               onClick={(event) => scrollToHref(event, "/")}
               className="flex size-30 items-center justify-center text-white"
             >
-              <ProgramMark className="size-24" />
+              <ProgramMark className="size-24 text-brand-purple" />
             </Link>
           </li>
           <span
@@ -348,7 +348,7 @@ function MobileNav({
             }}
             className="flex size-24 items-center justify-center text-white"
           >
-            <ProgramMark className="size-18" />
+            <ProgramMark className="size-18 text-brand-purple" />
           </Link>
           <button
             type="button"

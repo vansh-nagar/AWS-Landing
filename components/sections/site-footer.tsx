@@ -52,7 +52,7 @@ export function SiteFooter() {
         <div className="flex flex-col gap-48 lg:gap-64">
           <div className="grid grid-cols-1 gap-48 lg:grid-cols-12 lg:gap-x-16">
             <div className="flex flex-col gap-16 lg:col-span-5">
-              <ProgramMark className="size-40 text-white" />
+              <ProgramMark className="size-40 text-brand-purple" />
               <p className="text-balance font-medium text-headline-10">
                 {footer.brand}
               </p>
