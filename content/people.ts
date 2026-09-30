@@ -62,51 +62,48 @@ export const coreTeam = {
       name: "Yashvardhan Thanvi",
       role: "Student Builder Group Leader",
       line: "Leading AWS Student Builder Group at BIT Jaipur and helping build its cloud and developer community.",
-      initials: "YT",
+      photo: "/team/yashvardhan.jpg",
       linkedin: "#", // TODO: Yashvardhan's LinkedIn URL
     },
-    // TODO: fill in the core team as seats are confirmed.
     {
-      name: "[Name]",
+      name: "Devesh Jain",
+      role: "Co Lead",
+      line: "Co-leading AWS Student Builder Group at BIT Jaipur and helping the community grow.",
+      photo: "/team/devesh.jpg",
+      linkedin: "#", // TODO: Devesh's LinkedIn URL
+    },
+    {
+      name: "Vansh Nagar",
       role: "Technical Lead",
       line: "Shapes the technical sessions and hands-on workshops.",
-      placeholder: true,
+      photo: "/team/vansh.jpg",
+      linkedin: "#", // TODO: Vansh's LinkedIn URL
     },
     {
-      name: "[Name]",
-      role: "Events & Operations",
+      name: "Granth Jain",
+      role: "Event and Operations Lead",
       line: "Plans and runs community events on campus.",
-      placeholder: true,
+      photo: "/team/granth.jpg",
+      linkedin: "#", // TODO: Granth's LinkedIn URL
     },
     {
-      name: "[Name]",
-      role: "Community & Marketing",
-      line: "Grows the community and keeps everyone in the loop.",
-      placeholder: true,
-    },
-    {
-      name: "[Name]",
-      role: "Design / Content / Outreach",
+      name: "Shreyanshi Sharma",
+      role: "Graphics and Socials Lead",
       line: "Makes what we share look good and reach further.",
-      placeholder: true,
-    },
-    {
-      name: "[Name]",
-      role: "Developer Relations / Projects",
-      line: "Helps members start, ship and show their projects.",
-      placeholder: true,
+      photo: "/team/shreyanshi.jpg",
+      linkedin: "#", // TODO: Shreyanshi's LinkedIn URL
     },
   ] satisfies Person[] as Person[],
 };
 
 export const facultyAdvisor = {
   title: "Faculty Advisor",
-  // TODO: faculty advisor's name, designation and photo.
+  // TODO: faculty advisor's designation and photo.
   person: {
-    name: "Prof. [Name]",
-    role: "[Department / Designation]",
+    name: "Vivek Gaur",
+    role: "Faculty Advisor",
     line: "Supporting the AWS Student Builder Group community at BIT Jaipur.",
-    placeholder: true,
+    initials: "VG",
   } satisfies Person as Person,
 };
 

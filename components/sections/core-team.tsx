@@ -112,11 +112,11 @@ export function CoreTeam() {
       >
         <h3
           id="faculty-title"
-          className="col-span-2 text-balance font-medium text-body-30 lg:col-span-1"
+          className="col-span-2 text-balance font-medium text-body-30 lg:col-span-3"
         >
           <AnimatedText>{facultyAdvisor.title}</AnimatedText>
         </h3>
-        <ul className="min-w-0 lg:col-start-2">
+        <ul className="min-w-0">
           <PersonCard person={facultyAdvisor.person} tag={coreTeam.placeholderTag} />
         </ul>
       </div>
