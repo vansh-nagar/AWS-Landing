@@ -1,26 +1,187 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/*
+ * Design tokens harvested from contentarchitecture.dev (Tailwind v4 build).
+ * Note: --spacing is 1px, so `p-16` = 16px, `gap-48` = 48px, `h-48` = 48px.
+ */
+@theme {
+  --font-sans:
+    var(--font-geist-sans), ui-sans-serif, system-ui, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol";
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --spacing: 0.0625rem;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  --color-black-deep: #000;
+  --color-black: #232323;
+  --color-white: #fff;
+  --color-off-white: #f1eee7;
+  --color-dark-grey: #5b5a56;
+  --color-ghost-grey: #dedede;
+  --color-mid-grey: #cbcbcb;
+  --color-accent: #ff9100;
+
+  /* AWS Student Builder Group brand palette (official kit). */
+  --color-brand-amber: #ff9900;
+  --color-brand-mint: #00e582;
+  --color-brand-magenta: #ff57e9;
+  --color-brand-blue: #42b4ff;
+  --color-brand-purple: #ad5cff;
+  --color-brand-grey-850: #161d26;
+
+  --radius-2: calc(var(--spacing) * 2);
+  --radius-4: calc(var(--spacing) * 4);
+  --radius-8: calc(var(--spacing) * 8);
+  --radius-full: 9999px;
+
+  --fluid-min-w: var(--layout-min-w, 375);
+  --fluid-max-w: var(--layout-max-w, 1600);
+  --fluid-slope: calc(
+    (100vw - calc(var(--spacing) * var(--fluid-min-w))) /
+      (var(--fluid-max-w) - var(--fluid-min-w))
+  );
+
+  --text-ui: calc(var(--spacing) * 12);
+  --text-ui--font-weight: 400;
+  --text-ui--line-height: 1.25;
+  --text-ui--letter-spacing: normal;
+  --text-caption-10: clamp(
+    calc(var(--spacing) * 12),
+    calc(var(--spacing) * 12) + (14 - 12) * var(--fluid-slope),
+    calc(var(--spacing) * 14)
+  );
+  --text-caption-10--font-weight: 400;
+  --text-caption-10--line-height: 1.25;
+  --text-caption-10--letter-spacing: normal;
+  --text-caption-20: clamp(
+    calc(var(--spacing) * 14),
+    calc(var(--spacing) * 14) + (16 - 14) * var(--fluid-slope),
+    calc(var(--spacing) * 16)
+  );
+  --text-caption-20--font-weight: 400;
+  --text-caption-20--line-height: 1.25;
+  --text-caption-20--letter-spacing: normal;
+  --text-body-10: clamp(
+    calc(var(--spacing) * 14),
+    calc(var(--spacing) * 14) + (16 - 14) * var(--fluid-slope),
+    calc(var(--spacing) * 16)
+  );
+  --text-body-10--font-weight: 400;
+  --text-body-10--line-height: 1.25;
+  --text-body-10--letter-spacing: normal;
+  --text-body-20: clamp(
+    calc(var(--spacing) * 14),
+    calc(var(--spacing) * 14) + (18 - 14) * var(--fluid-slope),
+    calc(var(--spacing) * 18)
+  );
+  --text-body-20--font-weight: 400;
+  --text-body-20--line-height: 1.25;
+  --text-body-20--letter-spacing: normal;
+  --text-body-30: clamp(
+    calc(var(--spacing) * 16),
+    calc(var(--spacing) * 16) + (24 - 16) * var(--fluid-slope),
+    calc(var(--spacing) * 24)
+  );
+  --text-body-30--font-weight: 400;
+  --text-body-30--line-height: 1.25;
+  --text-body-30--letter-spacing: normal;
+  --text-headline-10: clamp(
+    calc(var(--spacing) * 32),
+    calc(var(--spacing) * 32) + (48 - 32) * var(--fluid-slope),
+    calc(var(--spacing) * 48)
+  );
+  --text-headline-10--font-weight: 400;
+  --text-headline-10--line-height: 1.1;
+  --text-headline-10--letter-spacing: normal;
+  --text-headline-20: clamp(
+    calc(var(--spacing) * 40),
+    calc(var(--spacing) * 40) + (80 - 40) *
+      ((100vw - calc(var(--spacing) * 1400)) / (1920 - 1400)),
+    calc(var(--spacing) * 80)
+  );
+  --text-headline-20--font-weight: 400;
+  --text-headline-20--line-height: 1;
+  --text-headline-20--letter-spacing: normal;
+
+  --animate-fade-in: fadeIn 0.4s ease-in-out;
+  --animate-cursor-blink: cursorBlink 0.9s steps(1, end) infinite;
+  --animate-status-ping: statusPing 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+  --animate-hero-scroll-cue: heroScrollCue 1.4s steps(7, end) infinite;
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes cursorBlink {
+    0%,
+    49.9% {
+      opacity: 1;
+    }
+    50%,
+    to {
+      opacity: 0;
+    }
+  }
+  @keyframes statusPing {
+    0% {
+      opacity: 0.5;
+      transform: scale(1);
+    }
+    75%,
+    to {
+      opacity: 0;
+      transform: scale(2.6);
+    }
+  }
+  @keyframes heroScrollCue {
+    0% {
+      transform: translateY(-8px);
+    }
+    to {
+      transform: translateY(48px);
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+:root {
+  --layout-min-w: 375;
+  --layout-max-w: 1600;
+}
+
+@layer base {
+  html,
+  body {
+    background-color: var(--color-off-white);
+    position: relative;
+    overflow-x: clip;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    font-size: var(--text-body-30);
+    line-height: var(--tw-leading, var(--text-body-30--line-height));
+    letter-spacing: var(--tw-tracking, var(--text-body-30--letter-spacing));
+    font-weight: var(--tw-font-weight, var(--text-body-30--font-weight));
+    color: var(--color-black);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    flex-direction: column;
+    flex: 1;
+    display: flex;
+  }
+}
+
+/* Odometer glyphs render their character from the data attribute. */
+[data-odometer-glyph]::before {
+  content: attr(data-odometer-glyph);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-cursor-blink {
+    animation: none;
+  }
 }

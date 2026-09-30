@@ -1,0 +1,20 @@
+/*
+ * Pre-reveal cloaks for AnimatedText / AnimatedContent.
+ *
+ * Both components server-render their pre-animation state (AnimatedText:
+ * inline opacity 0.001, AnimatedContent: opacity 0 + translateY(100%)) and
+ * drop the data attribute once their entrance has taken over, so there is no
+ * flash of fully visible text before the reveal. These rules keep content
+ * visible for visitors without JavaScript or with reduced motion, who never
+ * get (or never need) the entrance.
+ */
+@media (scripting: none), (prefers-reduced-motion: reduce) {
+  [data-text-cloak] {
+    opacity: 1 !important;
+  }
+
+  [data-content-cloak] > * {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

@@ -1,0 +1,66 @@
+/*
+ * Site nav: the announcement marquee (port of the reference's `marqy`
+ * package CSS) and the staggered entrance of the nav items.
+ */
+
+[data-marqy] {
+  width: 100%;
+  position: relative;
+  overflow-x: clip;
+}
+
+[data-marqy-inner] {
+  display: flex;
+}
+
+[data-marqy-content] {
+  display: flex;
+  flex: 1 0 auto;
+  will-change: transform;
+  animation-name: marqyL;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-play-state: running;
+}
+
+[data-marqy-static] [data-marqy-content] {
+  animation: none;
+}
+
+[data-marqy][data-pause-on-hover]:hover > [data-marqy-inner] > [data-marqy-content] {
+  animation-play-state: paused;
+}
+
+[data-marqy-item] {
+  flex-grow: 0;
+}
+
+@keyframes marqyL {
+  from {
+    transform: translate(0, 0);
+  }
+  to {
+    transform: translate(-100%);
+  }
+}
+
+/* Nav items fade in one after another (0.4s ease-out, 60ms stagger). */
+.nav-item-in {
+  animation: navItemIn 0.4s cubic-bezier(0, 0, 0.58, 1) both;
+  animation-delay: calc(var(--nav-i, 0) * 60ms);
+}
+
+@keyframes navItemIn {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-marqy-content] {
+    animation: none !important;
+  }
+  .nav-item-in {
+    animation: none;
+  }
+}
