@@ -1,3 +1,5 @@
+import type { ReactNode } from "react";
+
 import { AnimatedText } from "@/components/hero/animated-text";
 import { AsciiPortrait } from "@/components/sections/people/ascii-portrait";
 import { AsciiBackground } from "@/components/ui/ascii-background";
@@ -28,6 +30,89 @@ function LinkedInIcon() {
   );
 }
 
+/** Instagram camera mark on the same pixel grid. */
+function InstagramIcon() {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 8 8"
+      className="size-12"
+      fill="currentColor"
+      shapeRendering="crispEdges"
+    >
+      <rect x="1" y="0" width="6" height="1" />
+      <rect x="1" y="7" width="6" height="1" />
+      <rect x="0" y="1" width="1" height="6" />
+      <rect x="7" y="1" width="1" height="6" />
+      <rect x="3" y="2" width="2" height="1" />
+      <rect x="3" y="5" width="2" height="1" />
+      <rect x="2" y="3" width="1" height="2" />
+      <rect x="5" y="3" width="1" height="2" />
+      <rect x="5" y="1" width="1" height="1" />
+    </svg>
+  );
+}
+
+/** GitHub octocat silhouette on the same pixel grid. */
+function GitHubIcon() {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 8 8"
+      className="size-12"
+      fill="currentColor"
+      shapeRendering="crispEdges"
+    >
+      <rect x="1" y="0" width="1" height="1" />
+      <rect x="6" y="0" width="1" height="1" />
+      <rect x="1" y="1" width="6" height="1" />
+      <rect x="0" y="2" width="8" height="3" />
+      <rect x="1" y="5" width="6" height="1" />
+      <rect x="2" y="6" width="1" height="2" />
+      <rect x="5" y="6" width="1" height="2" />
+      <rect x="0" y="6" width="2" height="1" />
+    </svg>
+  );
+}
+
+/** Globe mark on the same pixel grid, for a personal site. */
+function WebsiteIcon() {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 8 8"
+      className="size-12"
+      fill="currentColor"
+      shapeRendering="crispEdges"
+    >
+      <rect x="2" y="0" width="4" height="1" />
+      <rect x="2" y="7" width="4" height="1" />
+      <rect x="1" y="1" width="1" height="1" />
+      <rect x="6" y="1" width="1" height="1" />
+      <rect x="1" y="6" width="1" height="1" />
+      <rect x="6" y="6" width="1" height="1" />
+      <rect x="0" y="2" width="1" height="4" />
+      <rect x="7" y="2" width="1" height="4" />
+      <rect x="1" y="3" width="6" height="1" />
+      <rect x="3" y="1" width="1" height="6" />
+    </svg>
+  );
+}
+
+function SocialLink({ href, label, children }: { href: string; label: string; children: ReactNode }) {
+  return (
+    <a
+      href={href}
+      target={href.startsWith("http") ? "_blank" : undefined}
+      rel="noopener noreferrer"
+      aria-label={label}
+      className="flex size-24 shrink-0 items-center justify-center rounded-4 bg-white/10 text-white/60 transition-colors hover:bg-white hover:text-black focus-visible:bg-white focus-visible:text-black focus-visible:outline-none"
+    >
+      {children}
+    </a>
+  );
+}
+
 function PersonCard({ person, tag }: { person: Person; tag: string }) {
   return (
     <li className="group relative block min-w-0">
@@ -35,9 +120,10 @@ function PersonCard({ person, tag }: { person: Person; tag: string }) {
         <AsciiPortrait
           label={person.photo ? person.name : `${person.name} — portrait placeholder`}
           src={person.photo}
+          asciiSrc={person.asciiPhoto}
           initials={person.initials}
           aspect={PORTRAIT_ASPECT}
-          cols={64}
+          cols={96}
         />
         {person.placeholder ? (
           <span
@@ -56,16 +142,29 @@ function PersonCard({ person, tag }: { person: Person; tag: string }) {
             {person.role}
           </p>
         </div>
-        {person.linkedin ? (
-          <a
-            href={person.linkedin}
-            target={person.linkedin.startsWith("http") ? "_blank" : undefined}
-            rel="noopener noreferrer"
-            aria-label={`${person.name} on LinkedIn`}
-            className="flex size-24 shrink-0 items-center justify-center rounded-4 bg-white/10 text-white/60 transition-colors hover:bg-white hover:text-black focus-visible:bg-white focus-visible:text-black focus-visible:outline-none"
-          >
-            <LinkedInIcon />
-          </a>
+        {person.linkedin || person.instagram || person.github || person.website ? (
+          <div className="flex shrink-0 gap-4">
+            {person.linkedin ? (
+              <SocialLink href={person.linkedin} label={`${person.name} on LinkedIn`}>
+                <LinkedInIcon />
+              </SocialLink>
+            ) : null}
+            {person.instagram ? (
+              <SocialLink href={person.instagram} label={`${person.name} on Instagram`}>
+                <InstagramIcon />
+              </SocialLink>
+            ) : null}
+            {person.github ? (
+              <SocialLink href={person.github} label={`${person.name} on GitHub`}>
+                <GitHubIcon />
+              </SocialLink>
+            ) : null}
+            {person.website ? (
+              <SocialLink href={person.website} label={`${person.name}'s website`}>
+                <WebsiteIcon />
+              </SocialLink>
+            ) : null}
+          </div>
         ) : null}
       </div>
       <p className="mt-8 max-w-[40ch] text-body-10 text-ghost-grey">

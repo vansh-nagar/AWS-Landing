@@ -196,10 +196,8 @@ export const joinCommunity = {
     href: "https://builder.aws.com",
   },
   secondary: [
-    // TODO: group Meetup URL.
-    { label: "Follow our Meetup", href: "#" },
-    // TODO: campus community link (WhatsApp / Discord / Instagram broadcast).
-    { label: "Join the campus community", href: "#" },
+    { label: "Follow our Meetup", href: "https://www.meetup.com/aws-sbg-at-birla-inst-of-technology-mesra-jaipur-campus/" },
+    { label: "Join the campus community", href: "https://chat.whatsapp.com/HfnsHmEsdbxHIwMUWDealo" },
   ] satisfies LinkAction[],
   signature: {
     name: "AWS Student Builder Group",

@@ -114,8 +114,8 @@ export const about = {
 /* 5. Featured event + upcoming events                                       */
 /* ------------------------------------------------------------------------ */
 
-// TODO: replace with the group's Meetup URL (and per-event Meetup links).
-export const MEETUP_URL = "#";
+export const INDUCTION_URL = "https://www.meetup.com/aws-sbg-at-birla-inst-of-technology-mesra-jaipur-campus/events/316793046/";
+export const MEETUP_URL = "https://www.meetup.com/aws-sbg-at-birla-inst-of-technology-mesra-jaipur-campus/";
 
 export type EventMeta = { label: string; value: string };
 
@@ -123,20 +123,19 @@ export const featuredEvent = {
   heading: "Up Next",
   note: "Official events are published on Meetup",
   tag: "Induction",
-  status: "Coming soon",
+  status: "5 Oct · 3–5 PM",
   title: "AWS Student Builder Group Induction 2026",
-  subtitle: "Coming Soon · BIT Jaipur",
+  subtitle: "5 Oct 2026 · Seminar Hall · BIT Jaipur",
   description:
     "Meet the community, discover what AWS Student Builder Groups are about, learn what's coming this year, and connect with fellow builders across campus.",
   meta: [
-    { label: "Location", value: "BIT Jaipur" },
-    { label: "Date", value: "TBA" },
-    { label: "Time", value: "TBA" },
+    { label: "Location", value: "Seminar Hall, BIT Mesra Jaipur Campus" },
+    { label: "Date", value: "Monday, 5 October 2026" },
+    { label: "Time", value: "3:00 – 5:00 PM" },
     { label: "Open to", value: "BIT Jaipur students" },
   ] satisfies EventMeta[],
-  register: { words: ["Register", "on Meetup"] as [string, string], href: MEETUP_URL },
-  // TODO: link to the event's Meetup page once it is published.
-  view: { text: "View event", href: MEETUP_URL },
+  register: { words: ["Register", "on Meetup"] as [string, string], href: INDUCTION_URL },
+  view: { text: "View event", href: INDUCTION_URL },
 };
 
 export type UpcomingEvent = { title: string; date: string; location: string; href: string };
@@ -145,13 +144,9 @@ export const upcomingEvents = {
   heading: "Upcoming Events",
   href: MEETUP_URL,
   items: [
-    { title: "AWS SBG Induction", date: "Date TBA", location: "BIT Jaipur", href: MEETUP_URL },
-    { title: "Getting Started with AWS", date: "Date TBA", location: "BIT Jaipur", href: MEETUP_URL },
-    {
-      title: "Build Your First Cloud Application",
-      date: "Date TBA",
-      location: "BIT Jaipur",
-      href: MEETUP_URL,
-    },
+    { title: "AWS SBG Induction", date: "5 Oct · 3–5 PM", location: "Seminar Hall · BIT Jaipur", href: INDUCTION_URL },
+    // Future events stay unnamed until they're announced.
+    { title: "TBA", date: "Date TBA", location: "BIT Jaipur", href: MEETUP_URL },
+    { title: "TBA", date: "Date TBA", location: "BIT Jaipur", href: MEETUP_URL },
   ] satisfies UpcomingEvent[],
 };

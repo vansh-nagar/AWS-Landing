@@ -97,6 +97,7 @@ function sampleCells(
   levels: number,
   seed: string,
   grain: number,
+  photo = false,
 ): string {
   // Render the source at its true aspect, then squash it onto the cell grid.
   const srcW = 480;
@@ -116,26 +117,81 @@ function sampleCells(
   const { data } = gctx.getImageData(0, 0, cols, rows);
 
   const lum = new Float32Array(cols * rows);
-  let min = 1;
-  let max = 0;
   for (let i = 0; i < lum.length; i++) {
     const r = data[i * 4] ?? 0;
     const g = data[i * 4 + 1] ?? 0;
     const b = data[i * 4 + 2] ?? 0;
-    const l = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;
-    lum[i] = l;
-    if (l < min) min = l;
-    if (l > max) max = l;
+    lum[i] = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;
   }
-  const range = Math.max(0.001, max - min);
+  const tone = photo ? tonePhoto(lum, cols, rows) : stretch(lum);
   const rand = seeded(seed);
   let cells = "";
   for (let i = 0; i < lum.length; i++) {
-    const n = ((lum[i] ?? 0) - min) / range + (rand() - 0.5) * grain;
+    const n = (tone[i] ?? 0) + (rand() - 0.5) * grain;
     const level = Math.round(Math.min(1, Math.max(0, n)) * (levels - 1));
     cells += String.fromCharCode(33 + level);
   }
   return cells;
+}
+
+/** Min/max normalise (the original behaviour; used for placeholders). */
+function stretch(lum: Float32Array) {
+  let min = 1;
+  let max = 0;
+  for (const l of lum) {
+    if (l < min) min = l;
+    if (l > max) max = l;
+  }
+  const range = Math.max(0.001, max - min);
+  return lum.map((l) => (l - min) / range);
+}
+
+/** Below this the pixel is the cut-out's black background, not the subject. */
+const BACKDROP = 0.03;
+
+/**
+ * Photo tone curve. At card size a face is only ~25 cells wide, so a plain
+ * min/max stretch leaves it as a flat, hollow blob. Instead: sharpen (unsharp
+ * mask) so eyes, brows and mouth survive, stretch contrast over the subject
+ * only (2nd-98th percentile, ignoring the black backdrop), then lift midtones.
+ */
+function tonePhoto(lum: Float32Array, cols: number, rows: number) {
+  const blur = boxBlur(boxBlur(lum, cols, rows), cols, rows);
+  const subject: number[] = [];
+  const sharp = lum.map((l, i) => {
+    const v = l + 1.4 * (l - (blur[i] ?? l));
+    if (l > BACKDROP) subject.push(v);
+    return v;
+  });
+  if (subject.length < 16) return stretch(lum);
+  subject.sort((a, b) => a - b);
+  const lo = subject[Math.floor(subject.length * 0.02)] ?? 0;
+  const hi = subject[Math.floor(subject.length * 0.98)] ?? 1;
+  const range = Math.max(0.001, hi - lo);
+  return sharp.map((v, i) => {
+    if ((lum[i] ?? 0) <= BACKDROP) return 0;
+    const n = Math.min(1, Math.max(0, (v - lo) / range));
+    return 0.08 + 0.92 * n ** 0.8;
+  });
+}
+
+/** 3x3 box blur with clamped edges. */
+function boxBlur(src: Float32Array, cols: number, rows: number) {
+  const out = new Float32Array(src.length);
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < cols; c++) {
+      let sum = 0;
+      for (let dr = -1; dr <= 1; dr++) {
+        for (let dc = -1; dc <= 1; dc++) {
+          const rr = Math.min(rows - 1, Math.max(0, r + dr));
+          const cc = Math.min(cols - 1, Math.max(0, c + dc));
+          sum += src[rr * cols + cc] ?? 0;
+        }
+      }
+      out[r * cols + c] = sum / 9;
+    }
+  }
+  return out;
 }
 
 function loadImage(src: string) {
@@ -164,6 +220,11 @@ export type AsciiPortraitProps = {
   label: string;
   /** Same-origin photo. Omit for the generated placeholder. */
   src?: string;
+  /**
+   * Image sampled into ASCII instead of `src` (e.g. the subject cut out on
+   * black, so a busy background doesn't drown the face). Hover still shows `src`.
+   */
+  asciiSrc?: string;
   /** Placeholder: initials to draw. Without them, the program icon is drawn. */
   initials?: string;
   /** Width / height. */
@@ -182,6 +243,7 @@ export type AsciiPortraitProps = {
 export function AsciiPortrait({
   label,
   src,
+  asciiSrc = src,
   initials,
   aspect = 1,
   cols = 72,
@@ -245,9 +307,9 @@ export function AsciiPortrait({
     const placeholder = () =>
       sampleCells((c, w, h) => drawPlaceholder(c, w, h, initials), aspect, cols, rows, levels, seed, 0.06);
     // A missing/broken photo falls back to the placeholder.
-    const job = src
-      ? loadImage(src).then(
-          (img) => sampleCells(drawCover(img), aspect, cols, rows, levels, seed, 0.04),
+    const job = asciiSrc
+      ? loadImage(asciiSrc).then(
+          (img) => sampleCells(drawCover(img), aspect, cols, rows, levels, seed, 0.03, true),
           placeholder,
         )
       : Promise.resolve().then(placeholder);
@@ -257,7 +319,7 @@ export function AsciiPortrait({
     return () => {
       cancelled = true;
     };
-  }, [src, initials, label, aspect, cols, rows, levels, fontsReady]);
+  }, [asciiSrc, initials, label, aspect, cols, rows, levels, fontsReady]);
 
   // Cells -> canvas (straight port of the original draw loop).
   useEffect(() => {

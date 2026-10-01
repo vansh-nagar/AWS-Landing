@@ -44,10 +44,18 @@ export type Person = {
    * the same ASCII treatment as the placeholder; hover reveals the photo.
    */
   photo?: string;
+  /** `photo` with the background removed (subject on black), used for the ASCII. */
+  asciiPhoto?: string;
   /** Initials drawn in the ASCII placeholder while there is no photo. */
   initials?: string;
   /** LinkedIn profile URL. Omit to hide the icon. */
   linkedin?: string;
+  /** Instagram profile URL. Omit to hide the icon. */
+  instagram?: string;
+  /** GitHub profile URL. Omit to hide the icon. */
+  github?: string;
+  /** Personal website URL. Omit to hide the icon. */
+  website?: string;
   /** Seat not filled yet: shows a "To be announced" tag. */
   placeholder?: boolean;
 };
@@ -63,35 +71,43 @@ export const coreTeam = {
       role: "Student Builder Group Leader",
       line: "Leading AWS Student Builder Group at BIT Jaipur and helping build its cloud and developer community.",
       photo: "/team/yashvardhan.jpg",
-      linkedin: "#", // TODO: Yashvardhan's LinkedIn URL
+      asciiPhoto: "/team/yashvardhan-ascii.jpg",
+      linkedin: "https://www.linkedin.com/in/yashvardhan-thanvi-2a3a661a8/",
+      instagram: "https://www.instagram.com/yashvardhan.thanvi/",
     },
     {
       name: "Devesh Jain",
       role: "Co Lead",
       line: "Co-leading AWS Student Builder Group at BIT Jaipur and helping the community grow.",
       photo: "/team/devesh.jpg",
-      linkedin: "#", // TODO: Devesh's LinkedIn URL
+      asciiPhoto: "/team/devesh-ascii.jpg",
+      linkedin: "https://www.linkedin.com/in/deveshjain-18dj0404",
+      instagram: "https://www.instagram.com/_devesh.jain_/",
     },
     {
       name: "Vansh Nagar",
       role: "Technical Lead",
       line: "Shapes the technical sessions and hands-on workshops.",
       photo: "/team/vansh.jpg",
-      linkedin: "#", // TODO: Vansh's LinkedIn URL
+      asciiPhoto: "/team/vansh-ascii.jpg",
     },
     {
       name: "Granth Jain",
       role: "Event and Operations Lead",
       line: "Plans and runs community events on campus.",
       photo: "/team/granth.jpg",
-      linkedin: "#", // TODO: Granth's LinkedIn URL
+      asciiPhoto: "/team/granth-ascii.jpg",
+      linkedin: "https://www.linkedin.com/in/granth-jain-1838602b5",
+      instagram: "https://www.instagram.com/granthjain16/",
     },
     {
       name: "Shreyanshi Sharma",
       role: "Graphics and Socials Lead",
       line: "Makes what we share look good and reach further.",
       photo: "/team/shreyanshi.jpg",
-      linkedin: "#", // TODO: Shreyanshi's LinkedIn URL
+      asciiPhoto: "/team/shreyanshi-ascii.jpg",
+      linkedin: "https://www.linkedin.com/in/shreyanshi-sharma-440531324/",
+      instagram: "https://www.instagram.com/shreyanshi.sharma_/",
     },
   ] satisfies Person[] as Person[],
 };

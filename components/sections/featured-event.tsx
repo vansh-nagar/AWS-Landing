@@ -151,7 +151,7 @@ export function FeaturedEvent() {
           </h3>
           <ul className="grid grid-cols-1 gap-16 md:grid-cols-3">
             {upcomingEvents.items.map((item, i) => (
-              <li key={item.title}>
+              <li key={i}>
                 <Link
                   href={item.href}
                   className="group flex h-full min-h-160 flex-col justify-between gap-32 rounded-8 bg-black p-16 text-white transition-colors duration-300 hover:bg-black-deep lg:min-h-240 lg:p-32"

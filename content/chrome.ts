@@ -23,9 +23,10 @@ export type NavLink = ChromeLink & {
 
 export const LINKS = {
   builderCenter: "https://builder.aws.com", // TODO: swap for the group's unique Builder Center sign-up link.
-  meetup: "#", // TODO: group Meetup URL.
+  meetup: "https://www.meetup.com/aws-sbg-at-birla-inst-of-technology-mesra-jaipur-campus/",
+  whatsapp: "https://chat.whatsapp.com/HfnsHmEsdbxHIwMUWDealo",
   instagram: "https://www.instagram.com/aws.sbg.bitj/",
-  linkedin: "#", // TODO: LinkedIn page URL.
+  linkedin: "https://www.linkedin.com/company/aws-sbg-bit-jaipur",
 } as const;
 
 /* ------------------------------------------------------------------------ */
@@ -44,7 +45,7 @@ export const nav = {
     { label: "Contact", href: "#contact", sectionId: "contact" },
   ] satisfies NavLink[],
   /** Scrolling strip under the links. */
-  announcement: "Induction 2026 · Coming soon · BIT Jaipur",
+  announcement: "Induction 2026 · 5 Oct · 3–5 PM · Seminar Hall, BIT Jaipur",
   primaryCta: { label: "Join the Community", href: "#community" },
   secondaryCta: { label: "Upcoming Events", href: "#events" },
 };
@@ -85,6 +86,7 @@ export const footer = {
       title: "Connect",
       links: [
         { label: "Meetup", href: LINKS.meetup, external: true },
+        { label: "WhatsApp", href: LINKS.whatsapp, external: true },
         { label: "AWS Builder Center", href: LINKS.builderCenter, external: true },
         { label: "Instagram", href: LINKS.instagram, external: true },
         { label: "LinkedIn", href: LINKS.linkedin, external: true },
